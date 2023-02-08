@@ -55,6 +55,7 @@ class ResNet(nn.Module):
         self.flatten = nn.Flatten()
         self.fc = nn.Linear(512, 2)
         self.sigmoid = nn.Sigmoid()
+        self.double()
 
     def forward(self, x):
         out = self.conv1(x)
