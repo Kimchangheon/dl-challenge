@@ -119,9 +119,9 @@ class Trainer:
                 total_loss += loss
                 y_true.extend(y.cpu().numpy().tolist()) # save the predictions and the labels for each batch
                 # y_pred.extend(self._model(x).cpu().numpy().tolist())
-                y_pred.extend(pred.cpu().numpy().tolist())
+                y_pred.extend((pred.cpu() > 0.5).numpy().tolist())
         avg_loss = total_loss / len(self._val_test_dl) # calculate the average loss and average metrics of your choice.
-        avg_f1_score = f1_score(y_true, [i >0.5 for i in y_pred], average='weighted')
+        avg_f1_score = f1_score(y_true, y_pred, average='weighted')
         print(f"Validation Loss: {avg_loss:.4f}, F1 Score: {avg_f1_score:.4f}")
         return avg_loss, avg_f1_score # return the loss and print the calculated metrics
 
