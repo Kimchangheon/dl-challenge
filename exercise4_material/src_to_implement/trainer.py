@@ -115,10 +115,11 @@ class Trainer:
                 if self._cuda: # perform a validation step
                     x = x.cuda() #images
                     y = y.cuda() #labels
-                loss = self.val_test_step(x, y)
+                loss, pred = self.val_test_step(x, y)
                 total_loss += loss
                 y_true.extend(y.cpu().numpy().tolist()) # save the predictions and the labels for each batch
-                y_pred.extend(self._model(x).cpu().numpy().tolist())
+                # y_pred.extend(self._model(x).cpu().numpy().tolist())
+                y_pred.extend(pred.cpu().numpy().tolist())
         avg_loss = total_loss / len(self._val_test_dl) # calculate the average loss and average metrics of your choice.
         avg_f1_score = f1_score(y_true, y_pred, average='weighted')
         print(f"Validation Loss: {avg_loss:.4f}, F1 Score: {avg_f1_score:.4f}")
