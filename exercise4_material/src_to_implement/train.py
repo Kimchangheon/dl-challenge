@@ -16,7 +16,7 @@ early_stop_patience = 10
 # load the data from the csv file and perform a train-test-split
 # this can be accomplished using the already imported pandas and sklearn.model_selection modules
 df = pd.read_csv('data.csv', sep=';')
-train_df, val_df = train_test_split(df, validation_size=0.2)
+train_df, val_df = train_test_split(df, test_size=validation_size)
 
 # set up data loading for the training and validation set each using t.utils.data.DataLoader and ChallengeDataset objects
 train_dataset = ChallengeDataset(train_df, 'train')
