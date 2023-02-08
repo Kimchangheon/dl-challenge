@@ -44,7 +44,7 @@ class ChallengeDataset(Dataset):
         # label = self.data.iloc[idx, 1:].to_numpy()
         # label = np.array(self.data.iloc[idx, 1:]).reshape(1,-1)
         # label = np.array(self.data[['crack','inactive']].iloc(idx))
-        label = self.labels[idx,:].astype('float')
+        # label = self.labels[idx,:].astype('float')
         label = np.array(self.data.iloc[idx, 1:]).astype('float')
         # print(type(img), type(label))
         return img, torch.Tensor(label)
