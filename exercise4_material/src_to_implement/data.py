@@ -17,17 +17,12 @@ class ChallengeDataset(Dataset):
     def __init__(self, data: pd.DataFrame, mode: str):
         self.data = data
         self.mode = mode
+
         self.images = []
         for img_path in self.data['filename'].tolist():
             img_path = Path(img_path)
             img = imread(img_path)
             self.images.append(img)
-        self.n_samples = len(self.images)
-        self.labels = np.zeros((self.n_samples, 2))
-        crack = self.data['crack'].to_numpy()
-        inactive = self.data['inactive'].to_numpy()
-        tmp = np.concatenate((crack.reshape(-1, 1), inactive.reshape(-1, 1)), axis=1).astype(bool)
-        self.labels[tmp] = 1
 
         self._transform = tvtf.Compose([
             tvtf.ToPILImage(),
@@ -50,5 +45,6 @@ class ChallengeDataset(Dataset):
         # label = np.array(self.data.iloc[idx, 1:]).reshape(1,-1)
         # label = np.array(self.data[['crack','inactive']].iloc(idx))
         label = self.labels[idx,:].astype('float')
+        label = np.array(self.data.iloc[idx, 1:]).astype('float')
         # print(type(img), type(label))
-        return img, label
+        return img, torch.Tensor(label)
