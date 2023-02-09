@@ -50,7 +50,6 @@ class ResNet(nn.Module):
         self.resblock4 = ResBlock(256, 512, 2)
         self.global_avg_pool = nn.AdaptiveAvgPool2d((1, 1))
         # self.flatten = nn.Flatten()
-        self.flatten = torch.flatten()
         self.fc = nn.Linear(512, 2)
         self.sigmoid = nn.Sigmoid()
         # self.double()
@@ -65,7 +64,8 @@ class ResNet(nn.Module):
         out = self.resblock3(out)
         out = self.resblock4(out)
         out = self.global_avg_pool(out)
-        out = self.flatten(out, 1)
+        # out = self.flatten(out, 1)
+        out = torch.flatten(out, 1)
         out = self.fc(out)
         out = self.sigmoid(out)
         return out
