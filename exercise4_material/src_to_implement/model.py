@@ -30,9 +30,10 @@ class ResBlock(nn.Module):
         out = self.conv1(x)
         out = self.bn1(out)
         out = self.relu1(out)
+        # out = F.relu(out)
         out = self.conv2(out)
         out = self.bn2(out)
-        out = self.relu2(out)
+        # out = self.relu2(out) 아 이것때문에..
         out += self.shortcut(x)
         out = self.relu2(out)
         return out
@@ -52,7 +53,7 @@ class ResNet(nn.Module):
         self.flatten = nn.Flatten()
         self.fc = nn.Linear(512, 2)
         self.sigmoid = nn.Sigmoid()
-        # self.double()
+        # self.double() solve this error to change data.py to return float tensor
 
     def forward(self, x):
         torch.autograd.set_detect_anomaly(True)
