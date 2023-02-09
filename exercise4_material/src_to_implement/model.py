@@ -65,7 +65,7 @@ class ResNet(nn.Module):
         out = self.resblock3(out)
         out = self.resblock4(out)
         out = self.global_avg_pool(out)
-        out = self.flatten(out)
+        out = self.flatten(out, 1)
         out = self.fc(out)
         out = self.sigmoid(out)
         return out
