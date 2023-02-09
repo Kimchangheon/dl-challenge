@@ -27,7 +27,7 @@ val_test_dl = t.utils.data.DataLoader(val_dataset, batch_size=batch_size, shuffl
 # create an instance of our ResNet model
 model = model.ResNet()
 
-# set up a suitable loss criterion (you can find a pre-imple bmented loss functions in t.nn)
+# set up a suitable loss criterion (you can find a pre-implemented loss functions in t.nn)
 # set up the optimizer (see t.optim)
 # create an object of type Trainer and set its early stopping criterion
 crit = t.nn.BCELoss()

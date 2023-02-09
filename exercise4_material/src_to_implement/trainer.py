@@ -155,7 +155,7 @@ class Trainer:
             val_losses.append(val_loss)
 
             # save the model (can be restricted to epochs with improvement)
-            save_best_only = True
+            save_best_only = 1
             if save_best_only:
                 if val_loss < min(val_losses):
                     print(f" Model is saved. Loss is decreased from {min(val_losses)} to {val_loss}...")
@@ -163,6 +163,7 @@ class Trainer:
                     patience_counter = 0
                 else :
                     patience_counter +=1
+                    print(f" Model is saved.")
             else:
                 self.save_checkpoint(epoch_counter)
 
