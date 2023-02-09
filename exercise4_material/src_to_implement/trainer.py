@@ -163,9 +163,10 @@ class Trainer:
                     patience_counter = 0
                 else :
                     patience_counter +=1
-                    print(f" Model is saved.")
+                    print(f" Model isn't saved. Loss is changed from {min(val_losses)} to {val_loss}...")
             else:
                 self.save_checkpoint(epoch_counter)
+                print(f" Model is saved.")
 
             # check whether early stopping should be performed
             if patience_counter >= self._early_stopping_patience:
