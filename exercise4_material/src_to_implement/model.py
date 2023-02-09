@@ -42,7 +42,7 @@ class ResNet(nn.Module):
         super().__init__()
         self.conv1 = nn.Conv2d(3, 64, kernel_size=7, stride=2, padding=3)
         self.bn1 = nn.BatchNorm2d(64)
-        self.relu1 = nn.ReLU(inplace=True)
+        self.relu1 = nn.ReLU()
         self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
         self.resblock1 = ResBlock(64, 64, 1)
         self.resblock2 = ResBlock(64, 128, 2)
@@ -55,6 +55,7 @@ class ResNet(nn.Module):
         # self.double()
 
     def forward(self, x):
+        torch.autograd.set_detect_anomaly(True)
         out = self.conv1(x)
         out = self.bn1(out)
         out = self.relu1(out)
