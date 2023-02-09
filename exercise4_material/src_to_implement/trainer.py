@@ -133,6 +133,7 @@ class Trainer:
         #TODO
         train_losses = []
         val_losses = []
+        val_min_loss = float("inf")
         epoch_counter = 0
         patience_counter =0
         while True:
@@ -155,19 +156,20 @@ class Trainer:
             val_losses.append(val_loss)
 
             # save the model (can be restricted to epochs with improvement)
-            save_best_only = 1
+            save_best_only = True
             if save_best_only:
-                if val_loss < min(val_losses):
-                    print(f" Model is saved. Loss is decreased from {min(val_losses)} to {val_loss}...")
+                if val_loss < val_min_loss:
+                    print(f" Model is saved. Loss is decreased from {val_min_loss} to {val_loss}...")
                     self.save_checkpoint(0)
                     patience_counter = 0
                 else :
                     patience_counter +=1
-                    print(f" Model isn't saved. Loss is changed from {min(val_losses)} to {val_loss}...")
+                    # print(f" Model isn't saved. Loss is changed from {val_min_loss} to {val_loss}...")
             else:
                 self.save_checkpoint(epoch_counter)
                 print(f" Model is saved.")
 
+            val_min_loss = min(val_losses)
             # check whether early stopping should be performed
             if patience_counter >= self._early_stopping_patience:
                 print("Early stopping----")
