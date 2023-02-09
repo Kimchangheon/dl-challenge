@@ -9,9 +9,9 @@ from sklearn.model_selection import train_test_split
 
 validation_size = 0.2
 batch_size=32
-learning_rate = 1e-3
+learning_rate = 1e-4
 epochs = 20
-early_stop_patience = 10
+early_stop_patience = 30
 
 # load the data from the csv file and perform a train-test-split
 # this can be accomplished using the already imported pandas and sklearn.model_selection modules
